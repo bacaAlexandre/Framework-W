@@ -18,18 +18,16 @@ class UserController extends Controller
 
   public function login()
 	{
-		var_dump($_GET);
-		$truc = new UserModel();
-		$test = $truc -> getUserByUsernameOrEmail($_GET['username']);
-
-		var_dump($test);
-		if ($test){
-			if($truc -> emailExists($_GET['email'])) {
-				if($truc -> passwordExists($_GET['password'])){
-					$_SESSION['user']['id'] = $test['id'];
-
-				}
+		if (!empty($_POST)){
+			var_dump($_POST);
+			$truc = new UserModel();
+			if(($truc -> emailExists($_POST['email'])) && ($truc -> passwordExists($_POST['password']))) {
+				$test = $truc -> getUserByUsernameOrEmail($_POST['username']);
+				var_dump($test);
+				$_SESSION['user']['id'] = $test['id'];
+				var_dump($_SESSION);
 			}
+
 		}
 		$this->show('user/connexion');
 
@@ -40,3 +38,9 @@ class UserController extends Controller
     $this->show('user/mise_a_jour');
   }
 }
+
+	public function logout(){
+		if (!empty($_SESSION)){
+			session_unset();
+		}
+	}

@@ -1,3 +1,12 @@
+<?php
+
+if (empty($_SESSION['user'])){
+	$truc = "<li><a href='user_login/'>Connexion</a></li>";
+}else(
+	$truc = "<li><a href='user_logout/'>Deconnexion</a></li>";
+	)
+
+	?>
 <?php $this->layout('layout', ['title' => 'Accueil']) ?>
 
 <?php $this->start('main_content') ?>
@@ -7,7 +16,7 @@
 	<ul>
 		<p>User</p>
 		<li><a href="user_signIn/">Inscription</a></li>
-		<li><a href="user_login/">Connexion</a></li>
+		<?= $truc ?>
 		<li><a href="user_update/">Mise à jour compte</a></li>
 	</ul>
 	<ul>
