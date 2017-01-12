@@ -7,6 +7,8 @@ use \W\Model\ConnectionModel;
 
 class UserModel extends \W\Model\UsersModel
 {
+
+
   public function passwordExists($password){
 
     $app = getApp();
@@ -25,4 +27,21 @@ class UserModel extends \W\Model\UsersModel
      }
      return false;
    }
+
+   public function signUserIn($username, $email, $password){
+     $app = getApp();
+
+     $sql = "INSERT INTO ". $this->table ."(username, email, password)
+     VALUES (:username, :email, :password)";
+     var_dump($sql);
+     $dbh = ConnectionModel::getDbh();
+     $sth = $dbh->prepare($sql);
+     $sth->bindValue(':password', $password);
+     $sth->bindValue(':email', $email);
+     $sth->bindValue(':username', $username);
+     $foundUser = $sth->execute();
+
+   }
+
+
 }

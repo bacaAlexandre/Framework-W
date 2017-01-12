@@ -2,9 +2,10 @@
 
 if (empty($_SESSION['user'])){
 	$truc = "<li><a href='user_login/'>Connexion</a></li>";
-}else(
+} else {
 	$truc = "<li><a href='user_logout/'>Deconnexion</a></li>";
-	)
+}
+
 
 	?>
 <?php $this->layout('layout', ['title' => 'Accueil']) ?>
